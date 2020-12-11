@@ -7,9 +7,32 @@ const orderScheme = new Schema({
         type: Schema.type.ObjectId,
         required: true
     },
-    way_start: {},
-    way_end: {},
-    time_created: {},
+    way_start: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        required: true
+      },
+      coordinates: {
+          type: [Number],
+          required: true
+      }  
+    },
+    way_end: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+      },
+    time_created: {
+        type: Date, 
+        default: Date.now
+    },
     confirm: {
         type: Boolean,
         default: false

@@ -11,10 +11,18 @@ const userScheme = new Schema({
         type: String,
         required: true
     },
-    password: {},
-    chat_id: {},
-    tel: {},
-    card_id: {},
+    password: {
+        type: String,
+        required: true
+    },
+    //chat_id: {},
+    tel: {
+        type: String,
+        required: true
+    },
+    card_id: {
+        type : String
+    },
 })
 
 module.exports = mongoose.model('users', userScheme)
