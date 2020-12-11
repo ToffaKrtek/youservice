@@ -33,6 +33,10 @@ const orderScheme = new Schema({
         type: Date, 
         default: Date.now
     },
+    comments: {
+        type: String,
+        default: ''
+    },
     confirm: {
         type: Boolean,
         default: false
@@ -45,8 +49,10 @@ const orderScheme = new Schema({
         type: Number,
         required: true
     },
-    driver_id: {ref: 'users',
-    type: Schema.type.ObjectId,
+    driver_id: {
+        ref: 'users',
+        type: Schema.type.ObjectId,
+        default: ''  //возможно создать неактивного аользователя, если будет ругаться что отдаём пустую строку вместо референции на реального пользователя
     }
 })
 

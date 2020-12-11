@@ -18,7 +18,8 @@ const userScheme = new Schema({
     //chat_id: {},
     tel: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     card_id: {
         type : String
