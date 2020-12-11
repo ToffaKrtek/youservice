@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const orderScheme = new Schema({
     user_id: {
         ref: 'users',
-        type: Schema.type.ObjectId,
+        type: Schema.Types.ObjectId,
         required: true
     },
     way_start: {
@@ -51,7 +51,7 @@ const orderScheme = new Schema({
     },
     driver_id: {
         ref: 'users',
-        type: Schema.type.ObjectId,
+        type: Schema.Types.ObjectId,
         default: ''  //возможно создать неактивного аользователя, если будет ругаться что отдаём пустую строку вместо референции на реального пользователя
     }
 })

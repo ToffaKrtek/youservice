@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const locationScheme = new Schema({
     user_id: {
         ref: 'users',
-        type: Schema.type.ObjectId,
+        type: Schema.Types.ObjectId,
         required: true
     },
     location_point: {
@@ -23,7 +23,7 @@ const locationScheme = new Schema({
         default: Date.now
     },
     active: {
-        type: boolean,
+        type: Boolean,
         default: false
     },
 })
