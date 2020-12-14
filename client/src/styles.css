@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~materialize-css/dist/css/materialize.min.css";
+@import "theme/styles.min.css";
+body {
+    background-color: #0b141b;
+    ;  
+}
+.first-color{
+    background-color: #1f3346;
+}
+.second-color{
+    background-color: #121920;
+}

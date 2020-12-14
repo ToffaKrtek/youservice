@@ -3,7 +3,6 @@ const controller = require('../controllers/orders')
 const passport = require('passport')
 const router = express.Router()
 
-//const passport = require('passport')
 
 router.get('/', passport.authenticate('jwt', {session: false}), controller.getAll)
 router.get('/:id', controller.getById)

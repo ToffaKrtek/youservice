@@ -1,0 +1,17 @@
+
+    <nav>
+        <div class="nav-wrapper second-color">
+            <a routerLink="/" class="brand-logo yellow-text">Your<b class="black-text">Service</b></a>
+            <a routerLinkActive="hide" routerLink="register" data-target="mobile-demo" class="sidenav-trigger amber-text"><i class="material-icons">control_point</i></a>
+            <a routerLinkActive="hide" routerLink="login" data-target="mobile-demo" class="sidenav-trigger amber-text"><i class="material-icons">contacts</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li routerLinkActive="active" class="white-text"><a routerLink="login">Вход</a></li>
+                <li routerLinkActive="active" class="white-text"><a routerLink="register">Регистрация</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="auth-block">
+        <router-outlet></router-outlet>
+    </div>
+    

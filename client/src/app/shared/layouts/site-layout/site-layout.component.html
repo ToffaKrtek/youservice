@@ -1,0 +1,23 @@
+
+<ul class="sidenav sidenav-fixed a-sidenav second-color">
+    <h4 class="first-color" style="border-top: 4px solid #2e4a66;border-bottom: 3px solid #2e4a66;"><a routerLink="/" class="brand-logo yellow-text">Your<b class="black-text">Service</b></a></h4>
+    <li class="bold"
+        routerLinkActive="active"
+        *ngFor="let link of links">
+        <a [routerLink]="[link.url]" class="waves-effect waves-orange white-text">{{link.name}}</a>
+    </li>
+    
+    <li class="bold last"><a href="#" class="waves-effect waves-orange yellow-text" (click)="logout($event)">Выйти</a></li>
+</ul>
+<main class="content">
+    <router-outlet></router-outlet>
+</main>
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large black">
+        <i class="large material-icons yellow-text">local_taxi</i>
+    </a>
+    <ul>
+        <li><a class="btn-floating yellow"><i class="material-icons black">wifi_tethering</i></a></li>
+        <li><a class="btn-floating yellow"><i class="material-icons black">speaker_notes</i></a></li>
+    </ul>
+</div>
