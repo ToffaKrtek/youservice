@@ -7,13 +7,14 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent {
   constructor(private auth: AuthService) {}
-
+  
   ngOnInit() {
     const potencialToken = localStorage.getItem('auth-token');
-
+    
     if (potencialToken != null) {
       this.auth.setToken(potencialToken);
     }
+    
   }
 }
 

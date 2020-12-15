@@ -11,11 +11,11 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit, OnDestroy{
-  form: FormGroup
-  aSub: Subscription
-  constructor(private auth: AuthService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  form!: FormGroup
+  aSub!: Subscription
+  constructor(
+    private auth: AuthService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -32,15 +32,16 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
 
   onSubmit(){
     this.form.disable()
-
     this.aSub = this.auth.register(this.form.value).subscribe(
-      () => this.router.navigate(['/login'], {
-        queryParams: {
-          registered: true
-        }
-      }),
+      () =>  {
+        this.router.navigate(['/login'], {
+          queryParams: {
+            registered: true,
+          },
+        });
+      },
       error => {
-        MaterialService.toast(error.error.message)
+        MaterialService.toast(error.error.message, 'red')
         this.form.enable()
       }
     )

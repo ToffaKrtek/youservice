@@ -1,23 +1,46 @@
-
-<ul class="sidenav sidenav-fixed a-sidenav second-color">
-    <h4 class="first-color" style="border-top: 4px solid #2e4a66;border-bottom: 3px solid #2e4a66;"><a routerLink="/" class="brand-logo yellow-text">Your<b class="black-text">Service</b></a></h4>
+<nav>
+    <div class="nav-wrapper second-color">
+        <a routerLink="overview" class="brand-logo center yellow-text" style="text-decoration:underline black;">Your<b class="black-text"   >Service</b></a> 
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Контакты</a></li>
+            <li><a href="badges.html">Отзывы</a></li>
+            <li class="bold last"><a href="#" class="waves-effect waves-orange yellow-text" (click)="logout($event)">Выйти</a></li>
+          </ul>
+    </div>
+</nav>
+<ul id="slide-out" class="sidenav second-color"  #sidenav >
+    <h5 class="first-color" style="border-top: 2px solid #2e4a66;border-bottom: 1px solid #2e4a66; padding-left: 5px;"><a routerLink="/" class="brand-logo yellow-text">Your<b class="black-text">Service</b></a></h5>
+   
     <li class="bold"
         routerLinkActive="active"
         *ngFor="let link of links">
         <a [routerLink]="[link.url]" class="waves-effect waves-orange white-text">{{link.name}}</a>
     </li>
-    
+<!--     
     <li class="bold last"><a href="#" class="waves-effect waves-orange yellow-text" (click)="logout($event)">Выйти</a></li>
+    <ul id="slide-out" class="sidenav">
+        <li><a class="sidenav-close" href="#!">Clicking this will close Sidenav</a></li>
+    </ul>
+
+    <div class="sidenavWrapper">
+        <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating pin-top yellow" (click)="closeSidenav($event)"><i class="material-icons  medium black-text">menu</i></a>
+    </div> -->
 </ul>
+
+
+<div class="sidenavWrapper">
+    <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating pin-top yellow" (click)="openSidenav($event)"><i class="material-icons  medium black-text">menu</i></a>
+</div>
+
 <main class="content">
     <router-outlet></router-outlet>
 </main>
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large black">
+<div class="fixed-action-btn" #floating>
+    <a class="btn-floating pulse btn-large black" routerLink="orders/new">
         <i class="large material-icons yellow-text">local_taxi</i>
     </a>
     <ul>
-        <li><a class="btn-floating yellow"><i class="material-icons black">wifi_tethering</i></a></li>
-        <li><a class="btn-floating yellow"><i class="material-icons black">speaker_notes</i></a></li>
+        <li><a class="btn-floating" routerLink="location"><i class="material-icons yellow black-text">wifi_tethering</i></a></li>
+        <li><a class="btn-floating" routerLink="overview"><i class="material-icons yellow black-text">speaker_notes</i></a></li>
     </ul>
 </div>

@@ -11,11 +11,12 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
-  form: FormGroup
-  aSub: Subscription
-  constructor(private auth: AuthService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  form!: FormGroup
+  aSub!: Subscription
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private route: ActivatedRoute) {
 
       }
 
@@ -25,20 +26,20 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       password: new FormControl(null, [Validators.required, Validators.minLength(5)])
     })
 
-    this.route.queryParams.subscribe( (params: Params) => {
-      if (params['registered']) {
-        MaterialService.toast('Добро пожаловать');
-      } else if (params['accessDenied']) {
-        MaterialService.toast('Вы не авторизованы');
-      } else if (params['sessionFailed']) {
-        MaterialService.toast('Необходимо аторизоваться снова');
+    this.route.queryParams.subscribe((params: Params) => {
+      if (params['registered'] == true) {
+        MaterialService.toast('Добро пожаловать', 'yellow black-text');
+      } else if (params['accessDenied'] == true) {
+        MaterialService.toast('Вы не авторизованы', 'red black-text');
+      } else if (params['sessionFailed']  == true) {
+        MaterialService.toast('Необходимо аторизоваться снова', 'red black-text');
       }
     })
   }
 
   ngOnDestroy(){
     if(this.aSub){
-    this.aSub.unsubscribe()
+      this.aSub.unsubscribe()
     }
   }
 
@@ -48,7 +49,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.aSub = this.auth.login(this.form.value).subscribe(
       () => this.router.navigate(['/overview']),
       error => {
-        MaterialService.toast(error.error.message)
+        MaterialService.toast(error.error.message, 'red black-text')
   
         this.form.enable()
       }
