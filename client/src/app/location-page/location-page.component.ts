@@ -21,15 +21,14 @@ export class LocationPageComponent implements OnInit, OnDestroy{
   height: string
 
   @Input()
-  latitude = 52.520008
+  latitude = 55.34339209297177
   @Input()
-  longitude = 13.404954
-
+  longitude = 86.08196862695301
+ // Кооржинаты центра Кемерова [55.34339209297177,86.08196862695301]
   @Input()
-  latitudePointer = 52.520008
+  latitudePointer = 55.34339209297177
   @Input()
-  longitudePointer = 13.404954
-
+  longitudePointer = 86.08196862695301
   @Input()
   showControlsZoom: boolean
   @Input()

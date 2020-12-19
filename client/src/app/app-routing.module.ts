@@ -9,6 +9,9 @@ import { OverviewPageComponent } from './overview-page/overview-page.component';
 import { OrdersPageComponent } from './orders-page/orders-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { LocationPageComponent } from './location-page/location-page.component';
+import { OrdersFormComponent } from './orders-page/orders-form/orders-form.component';
+import { UsersFormComponent } from './users-page/users-form/users-form.component';
+import { AdminGuard } from './shared/classes/admin.guard';
 
 const routes: Routes = [
   {
@@ -20,9 +23,13 @@ const routes: Routes = [
   },
   {
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard], children: [
-      { path: 'overview', component: OverviewPageComponent },
-      { path: 'orders', component: OrdersPageComponent },
-      { path: 'users', component: UsersPageComponent },
+      { path: 'overview', component: OverviewPageComponent, canActivate: [ AdminGuard] },
+      { path: 'orders', component: OrdersPageComponent, canActivate: [ AdminGuard] },
+      { path: 'orders/new', component: OrdersFormComponent },
+      { path: 'orders/:id', component: OrdersFormComponent, canActivate: [ AdminGuard] },
+      { path: 'users', component: UsersPageComponent, canActivate: [ AdminGuard] },
+      { path: 'users/new', component: UsersFormComponent },
+      { path: 'users/:id', component: UsersFormComponent, canActivate: [ AdminGuard] },
       { path: 'location', component: LocationPageComponent }
     ]
   }

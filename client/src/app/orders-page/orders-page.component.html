@@ -1,1 +1,38 @@
-<p>orders-page works!</p>
+<div class="page-title">
+    <h5 class="white-text">Заказы</h5>
+    <button 
+    class="waves-effect waves-light btn yellow black-text"
+    routerLink="/orders/new"
+    >Добавить</button>
+</div>
+
+<div 
+    class="row"
+    *ngIf="orders$ | async as orders; else loader">
+    <div class="col s12">
+        
+        <div class="collection" 
+            *ngIf="orders.length != 0; else empty">
+            <a 
+            *ngFor="let order of orders"
+            [routerLink]="['/orders', order._id]"
+            class="collection-item  black-text"
+            [ngClass]="{'deep-orange lighten-1': order.active,
+                        'yellow lighten-3': !order.active}"
+            > 
+            <b>{{order.time_created  | date: 'HH:mm'}}</b> | {{order.time_created  | date: 'dd.MM.yy'}} |
+              Стоимость:  <b>{{order.price}}</b>
+        </a>
+            
+        </div>
+        <ng-template #empty>
+            <div class="center">
+                Список заказов пуст
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

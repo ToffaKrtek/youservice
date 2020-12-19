@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport')
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
@@ -19,8 +19,8 @@ app.use(passport.initialize())
 require('./middleware/passport')(passport)
 
 app.use(require('morgan')('dev'))
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 app.use(require('cors')())
 
 app.use('/api/auth', authRouter)

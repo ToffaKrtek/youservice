@@ -1,1 +1,36 @@
-<p>users-page works!</p>
+<div class="page-title">
+    <h5 class="white-text">Пользователи</h5>
+    <button 
+    class="waves-effect waves-light btn yellow black-text"
+    routerLink="/users/new"
+    >Добавить</button>
+</div>
+
+<div 
+    class="row"
+    *ngIf="users$ | async as users; else loader">
+    <div class="col s12">
+        
+        <div class="collection" 
+            *ngIf="users.length != 0; else empty">
+            <a 
+            *ngFor="let user of users"
+            [routerLink]="['/users/', user._id]"
+            class="collection-item  orange lighten-4 black-text"
+            > 
+            <b>{{user.login}}</b> | {{user.tel }} | <b class="red-text" *ngIf="user.role==2">Администратор</b><b class="blue-text" *ngIf="user.role==1">Водитель</b><b class="green-text" *ngIf="user.role==0">Пользователь</b>    
+        </a>
+ 
+            
+        </div>
+        <ng-template #empty>
+            <div class="center">
+                Список заказов пуст
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

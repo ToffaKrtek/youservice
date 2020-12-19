@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Order } from '../shared/interfaces';
+import { OrderService } from '../shared/services/orders.service'
 
 @Component({
   selector: 'app-orders-page',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersPageComponent implements OnInit {
 
-  constructor() { }
+  
+  orders$: Observable<Order[]> | undefined;
+  constructor(private ordersService: OrderService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.orders$ = this.ordersService.fetch()
   }
 
 }

@@ -17,6 +17,9 @@ import { OrdersPageComponent } from './orders-page/orders-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { LocationPageComponent } from './location-page/location-page.component';
 import { AngularOpenlayersModule } from 'ngx-openlayers';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { OrdersFormComponent } from './orders-page/orders-form/orders-form.component';
+import { UsersFormComponent } from './users-page/users-form/users-form.component';
 
 
 @NgModule({
@@ -29,7 +32,10 @@ import { AngularOpenlayersModule } from 'ngx-openlayers';
     OverviewPageComponent,
     OrdersPageComponent,
     UsersPageComponent,
-    LocationPageComponent
+    LocationPageComponent,
+    LoaderComponent,
+    OrdersFormComponent,
+    UsersFormComponent
   ],
   imports: [
     BrowserModule,
