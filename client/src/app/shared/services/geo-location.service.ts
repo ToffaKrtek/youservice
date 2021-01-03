@@ -14,10 +14,10 @@ const GEOLOCATION_ERRORS = {
 export class GeoLocationService {
   public getLocation(geoLocationOptions?: any): Observable<any> {
     geoLocationOptions = geoLocationOptions || { timeout: 5000 };
-
+    
     return new Observable((observer: Observer) => {
-      if (window.navigator && window.navigator.geolocation) {
-        window.navigator.geolocation.getCurrentPosition(
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
           position => {
             observer.next(position);
             observer.complete();

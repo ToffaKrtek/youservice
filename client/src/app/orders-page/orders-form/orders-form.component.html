@@ -1,8 +1,8 @@
 <div class="page-title white-text">
     <h4>
-        <a href="#" class="white-text">Заказы</a>
+        <a routerLink="/orders" class="white-text">Заказы</a>
         <i class="material-icons">keyboard_arrow_right</i>
-        Добавить заказ
+        {{isNew ? 'Добавить': 'Редактировать'}} заказ
     </h4>
     <span>
         <button class="btn btn-small red">
@@ -12,30 +12,62 @@
 </div>
 
 <div class="row">
-    <div class="col s12 l6">
+    <form class="center" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="input-field">
-            <input id="name" type="text" required>
-            <label for="name">Откуда</label>
+            <input id="way_start" 
+            type="text" 
+            class="white-text"
+            formControlName="way_start"
+            [ngClass]="{'invalid': form.get('way_start').invalid && form.get('way_start').touched}">
+            <label for="way_start">Откуда</label>
+            <span class="helper-text red-text" 
+                *ngIf="form.get('way_start').invalid && form.get('way_start').touched">
+            Не задана начальная точка маршрута
+            </span>
         </div>
         <div class="input-field">
-            <input id="name" type="text" required>
-            <label for="name">Куда</label>
+            <input id="way_end"
+             type="text" 
+              class="white-text"
+              formControlName="way_end"
+            [ngClass]="{'invalid': form.get('way_end').invalid && form.get('way_end').touched}">
+            <label for="way_end">Куда</label>
+            <span class="helper-text red-text" 
+                *ngIf="form.get('way_end').invalid && form.get('way_end').touched">
+            Не задана конечная точка маршрута
+            </span>
         </div>
         <div class="input-field">
-            <input id="name" type="text" required>
-            <label for="name">Когда</label>
+            <input id="time_created" type="text"  class="white-text"
+            formControlName="time_created"
+            [ngClass]="{'invalid': form.get('time_created').invalid && form.get('time_created').touched}">
+            <label for="time_created">Когда</label>
+            <span class="helper-text red-text" 
+                *ngIf="form.get('way_end').invalid && form.get('way_end').touched">
+            Не указано время выезда
+            </span>
         </div>
         <div class="input-field">
-            <input id="name" type="text" required>
-            <label for="name">Стоимость</label>
+            <input id="price" type="number"  class="white-text"
+            formControlName="price"
+            [ngClass]="{'invalid': form.get('price').invalid && form.get('price').touched}">
+            <label for="price">Стоимость</label>
+            <span class="helper-text red-text" 
+                *ngIf="form.get('price').invalid && form.get('price').touched">
+            Не указана цена поездки
+            </span>
         </div>
 
         <div>
-            <button class="waves-effect waves-light btn">
+            <button 
+            type="submit"
+            class="waves-effect waves-light btn"
+            [disabled]="form.invalid || form.disabled"
+            >
                 Сохранить изменения
             </button>
         </div>
-    </div>
+    </form>
 </div>
 
 

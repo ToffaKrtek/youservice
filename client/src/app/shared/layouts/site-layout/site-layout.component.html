@@ -1,5 +1,5 @@
 <nav>
-    <div class="nav-wrapper second-color">
+    <div class="nav-wrapper second-color" style="z-index: 1000">
         <a routerLink="overview" class="brand-logo center yellow-text" style="text-decoration:underline black;">Your<b class="black-text"   >Service</b></a> 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="sass.html">Контакты</a></li>
@@ -8,7 +8,7 @@
           </ul>
     </div>
 </nav>
-<ul id="slide-out" class="sidenav second-color"  #sidenav >
+<ul id="slide-out" class="sidenav second-color"  #sidenav style="z-index: 1000">
     <h5 class="first-color" style="border-top: 2px solid #2e4a66;border-bottom: 1px solid #2e4a66; padding-left: 5px;"><a routerLink="/" class="brand-logo yellow-text">Your<b class="black-text">Service</b></a></h5>
    
     <li class="bold"
@@ -28,14 +28,14 @@
 </ul>
 
 
-<div class="sidenavWrapper">
-    <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating pin-top yellow" (click)="openSidenav($event)"><i class="material-icons  medium black-text">menu</i></a>
-</div>
 
-<main class="content">
+<div class="sidenavWrapper" style="position: fixed; z-index: 500">
+    <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating pin-top yellow fixed" (click)="openSidenav($event)"><i class="material-icons  medium black-text" >menu</i></a>
+</div>
+<main class="content" style="padding-top:15px;">
     <router-outlet></router-outlet>
 </main>
-<div class="fixed-action-btn" #floating>
+<div class="fixed-action-btn" #floating style="z-index: 1000">
     <a class="btn-floating pulse btn-large black" routerLink="orders/new">
         <i class="large material-icons yellow-text">local_taxi</i>
     </a>

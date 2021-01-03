@@ -1,4 +1,38 @@
-<aol-map [logo]="true" [width]="width" [height]="height" (onSingleClick)="onSingleClick($event)">
+<form class="white-text" style="position: fixed; bottom:1%; z-index:2; background-color: #1a1515; padding: 5px; border-radius:4px;"
+	[formGroup]="form" (ngSubmit)="onSubmit()">
+	<div class="input-field">
+		<input id="start_point" 
+		type="text" 
+		class="white-text"
+		formControlName="start_point"
+		>
+		<label for="start_point">Откуда</label>
+	</div>
+	<div class="input-field">
+		<input id="end_point" 
+		type="text" 
+		class="white-text"
+		formControlName="end_point">
+		<label for="end_point">Куда</label>
+	</div>
+	<div class="input-field">
+		<input id="comment" 
+		type="text" 
+		class="white-text">
+		<label for="comment">Комментарий</label>
+	</div>
+	<div>
+		<button 
+		type="submit"
+		class="waves-effect waves-light btn center"
+		[disabled]="form.invalid || form.disabled"
+		>
+			Сделать заказ
+		</button>
+	</div>
+</form>
+
+<aol-map [logo]="true" [width]="width" [height]="height" (onSingleClick)="onSingleClick($event)" style="position: absolute; bottom: 0; right: 0; z-index: 1;">
 	<aol-interaction-default></aol-interaction-default>
 	<aol-view [zoom]="zoom">
 		<aol-coordinate [x]="longitude" [y]="latitude" [srid]="'EPSG:4326'"></aol-coordinate>
@@ -33,7 +67,7 @@
 	</aol-layer-vector>
 	<aol-control>
 		<aol-content>
-      <div *ngIf="showControlsZoom" class="ol-overlaycontainer-stopevent">
+      <div class="ol-overlaycontainer-stopevent">
         <div class="ol-zoom ol-unselectable ol-control">
           <button [title]="titleZoomIn" class="ol-zoom-in" type="button" title="Zoom in" (click)="increaseZoom()">+</button>
           <button [title]="titleZoomOut" class="ol-zoom-out" type="button" title="Zoom out" (click)="decreaseZoom()">−</button>
@@ -49,18 +83,3 @@
   </aol-control>
 </aol-map>
 
-<ng-container *ngIf="showDebugInfo">
-<pre>
-zoom:{{zoom}}
-opacity:{{opacity}}
-latitude:{{latitude}}
-longitude:{{longitude}}
-latitudePointer:{{latitudePointer}}
-longitudePointer:{{longitudePointer}}
-pointedAddress:{{pointedAddress}}
-pointedAddressOrg:{{pointedAddressOrg}}
-position 
-    lat: {{position?.coords?.latitude}} 
-    lon: {{position?.coords?.longitude}}
-</pre>
-</ng-container>

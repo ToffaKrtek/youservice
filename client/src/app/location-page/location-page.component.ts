@@ -1,9 +1,12 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core'
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, HostListener } from '@angular/core'
 import { marker } from '../shared/services/marker.image'
 import { proj, View } from 'openlayers'
 import { HttpClient } from '@angular/common/http'
 import { Subscription } from 'rxjs'
 import { GeoLocationService } from '../shared/services/geo-location.service'
+import { FormGroup, FormControl } from '@angular/forms'
+import { MaterialService } from '../shared/classes/material.service'
+import { Order } from '../shared/interfaces'
 
 @Component({
   selector: 'app-location-page',
@@ -15,16 +18,30 @@ export class LocationPageComponent implements OnInit, OnDestroy{
   @Input()
   geoReverseService = 'https://nominatim.openstreetmap.org/reverse?key=iTzWSiYpGxDvhATNtSrqx5gDcnMOkntL&format=json&addressdetails=1&lat={lat}&lon={lon}'
 
-  @Input()
-  width: string
-  @Input()
-  height: string
+  form: FormGroup | undefined;
+
+  //Поля ввода адреса, выбор поля для заполнения (0 || 1)
+  start_point = {
+    lat: '',
+    lon: '',
+    address: ''
+  }
+  end_point = {
+    lat: '',
+    lon: '',
+    address: {}
+  }
+  points_input = [this.start_point, this.end_point]
+  active_input = 0
+
+  width: string = '1000px'
+  height: string = '1000px'
 
   @Input()
   latitude = 55.34339209297177
   @Input()
   longitude = 86.08196862695301
- // Кооржинаты центра Кемерова [55.34339209297177,86.08196862695301]
+ // Координаты центра Кемерова [55.34339209297177,86.08196862695301]
   @Input()
   latitudePointer = 55.34339209297177
   @Input()
@@ -55,14 +72,17 @@ export class LocationPageComponent implements OnInit, OnDestroy{
   position: any
   dirtyPosition
 
+
+
   @Output()
   addressChanged = new EventEmitter<String>()
 
   constructor(private httpClient: HttpClient, private geoLocationService: GeoLocationService) {
+    this.getScreenSize();
   }
 
   ngOnInit() {
-    if (this.showControlsCurrentLocation) {
+    
       this.geoLocationService.getLocation().subscribe((position) => {
         this.position = position
         if (!this.dirtyPosition) {
@@ -71,7 +91,11 @@ export class LocationPageComponent implements OnInit, OnDestroy{
           this.latitude = this.latitudePointer = this.position.coords.latitude
         }
       })
-    }
+  
+      this.form = new FormGroup( {
+        start_point: new FormControl(null),
+        end_point: new FormControl(null),
+      })
   }
 
   ngOnDestroy() {
@@ -84,6 +108,7 @@ export class LocationPageComponent implements OnInit, OnDestroy{
     this.longitudePointer = lonlat[0]
     this.latitudePointer = lonlat[1]
     this.reverseGeo()
+    
   }
   increaseOpacity() {
     this.opacity += 0.1
@@ -117,6 +142,26 @@ export class LocationPageComponent implements OnInit, OnDestroy{
       .replace(new RegExp('{lat}', 'ig'), `${this.latitudePointer}`)
     this.reverseGeoSub = this.httpClient.get(service).subscribe(data => {
       const val = (data || {})
+      
+      //Сохраняем и выводим данные при клике в поле активной формы
+      this.points_input[this.active_input].lat = data.lat
+      this.points_input[this.active_input].lon = data.lon
+      this.points_input[this.active_input].address = data.address.road + " " + data.address.house_number;
+      if(this.active_input == 0){
+        this.form.patchValue({
+        start_point: this.points_input[0].address
+      })
+      }else if(this.active_input == 1){
+        this.form.patchValue({
+        
+          end_point: this.points_input[1].address,
+         }) 
+      }
+      MaterialService.updateTextInputs()
+      console.log(this.points_input[this.active_input])
+
+      //Меняем активную форму
+      this.active_input = this.active_input == 0 ? 1 : 0;
 
       this.pointedAddressOrg = val['display_name']
       const address = []
@@ -170,5 +215,38 @@ export class LocationPageComponent implements OnInit, OnDestroy{
 
       this.addressChanged.emit(this.pointedAddress)
     })
+    
+  }
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+        this.height = window.innerHeight + 'px';
+        this.width = window.innerWidth  + 'px';
+  }
+
+  onSubmit() {
+  //   const order: Order = {
+  //   user_id: this.user.id, 
+  //   way_start: {
+  //       type: {
+  //           enum: ['Point'],
+  //           },
+  //         coordinates: [
+  //           0: this.start_point.lat,
+  //           1: this.start_point.lon 
+  //         ]},
+  //   way_end: {
+  //       type: {
+  //           type: string,
+  //           enum: ['Point'],
+  //         },
+  //         coordinates: {
+  //             type: [number]
+  //         }  
+  //       }, 
+  //   time_created: Date,
+  //   comments?: this.comments,
+  //   active: true, 
+  //   price: this.price,
+  //   }
   }
 }
